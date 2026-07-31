@@ -7,8 +7,14 @@
 <meta name="description" content="Dilip Venkatesh — Principal Engineer. 15+ years scaling secure, distributed systems at Atlassian and SAP.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Oswald:wght@500;600&family=Archivo:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script>
+  (function () {
+    var saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  })();
+</script>
 </head>
 <body>
 
@@ -19,6 +25,11 @@
     <span class="dot green"></span>
   </div>
   <div class="filename">dilip_venkatesh --status</div>
+  <div class="theme-switch" role="group" aria-label="Switch page theme">
+    <button type="button" class="theme-dot" data-theme-value="event-log" aria-label="Event Log theme" aria-pressed="true"></button>
+    <button type="button" class="theme-dot" data-theme-value="blueprint" aria-label="Blueprint theme" aria-pressed="false"></button>
+    <button type="button" class="theme-dot" data-theme-value="spec-sheet" aria-label="Spec Sheet theme" aria-pressed="false"></button>
+  </div>
   <div class="uptime" id="uptime">uptime: 0s</div>
 </div>
 
@@ -27,7 +38,9 @@
   <section class="hero">
     <h1>Dilip Venkatesh</h1>
     <p class="title">Principal Engineer</p>
-    <p class="status-line mono">OPERATIONAL · 15y experience · scaling systems to 1B+ events/day <span class="check">✓</span></p>
+    <p class="status-line mono theme-line theme-line--event-log">OPERATIONAL · 15y experience · scaling systems to 1B+ events/day <span class="check">✓</span></p>
+    <p class="status-line mono theme-line theme-line--blueprint">DRAWING NO. DV-01 · REV 2026.07 · SCALE: NTS</p>
+    <p class="status-line mono theme-line theme-line--spec-sheet">PART NO. DV-PE-01 · REV C · MATERIAL: 15+ YRS EXPERIENCE</p>
     <div class="actions">
       <a href="assets/Dilip-Venkatesh-Resume.pdf" download>Download résumé</a>
       <a href="mailto:dilip.venkatesh@outlook.com">Email</a>
@@ -45,7 +58,7 @@
 
     <div class="job" data-job>
       <div class="job-header">
-        <span class="mono">2020-05 → present</span> · <span class="company">Atlassian</span> — Principal Engineer
+        <span class="mono">2020-05 → present</span> · <span class="company">Atlassian</span> — <span class="role">Principal Engineer</span>
       </div>
       <ul class="job-lines">
         <li>MCP Platform Architecture: led development of Atlassian's official Remote MCP server, scaling to <span class="badge">5M tool calls/day</span> and <span class="badge">1M enterprise MAU</span>; achieved General Availability in January 2026 to enable secure, enterprise-grade AI integration.</li>
@@ -59,7 +72,7 @@
 
     <div class="job" data-job>
       <div class="job-header">
-        <span class="mono">2016-09 → 2020-04</span> · <span class="company">SAP Labs, Palo Alto</span> — Software Architect
+        <span class="mono">2016-09 → 2020-04</span> · <span class="company">SAP Labs, Palo Alto</span> — <span class="role">Software Architect</span>
       </div>
       <ul class="job-lines">
         <li>Contributed to architecture, modeling, and development of C/4 HANA Service Cloud ticketing, including Authorization (ACL), Approval, and workflow.</li>
@@ -70,7 +83,7 @@
 
     <div class="job" data-job>
       <div class="job-header">
-        <span class="mono">2010-07 → 2016-08</span> · <span class="company">SAP Labs India</span> — Senior Engineer
+        <span class="mono">2010-07 → 2016-08</span> · <span class="company">SAP Labs India</span> — <span class="role">Senior Engineer</span>
       </div>
       <ul class="job-lines">
         <li>Designed, developed, and architected S4 Manufacturing within SAP Fashion Management (built a 0-to-1 product, millions of dollars in customer deals — Under Armour, Nike, Armani, Luxottica).</li>
@@ -96,6 +109,10 @@
       <span class="chip">IAM</span>
       <span class="chip">SSO</span>
       <span class="chip">API Security</span>
+      <span class="chip">Enterprise Readiness</span>
+      <span class="chip">Policy Platform</span>
+      <span class="chip">Cloud Security</span>
+      <span class="chip">DLP</span>
       <span class="chip">API Productionisation</span>
       <span class="chip">Automation</span>
       <span class="chip">CI/CD</span>

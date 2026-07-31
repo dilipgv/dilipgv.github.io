@@ -61,6 +61,49 @@ a { color: var(--text); }
   white-space: nowrap;
 }
 
+.theme-switch {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.theme-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  padding: 0;
+  border: 1px solid var(--hairline);
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.theme-dot:hover { opacity: 0.9; }
+
+.theme-dot[aria-pressed="true"] {
+  opacity: 1;
+  background: var(--text-muted);
+}
+
+.theme-dot:focus-visible {
+  outline: 2px solid var(--verified);
+  outline-offset: 2px;
+}
+
+.theme-dot[data-theme-value="event-log"] { border-color: #3DDC84; }
+.theme-dot[data-theme-value="blueprint"] { border-color: #FF5A4E; }
+.theme-dot[data-theme-value="spec-sheet"] { border-color: #B23A2E; }
+
+/* ---------- theme-specific hero lines ---------- */
+.theme-line { display: none; }
+.theme-line--event-log { display: block; }
+html[data-theme="blueprint"] .theme-line--event-log,
+html[data-theme="spec-sheet"] .theme-line--event-log { display: none; }
+html[data-theme="blueprint"] .theme-line--blueprint { display: block; }
+html[data-theme="spec-sheet"] .theme-line--spec-sheet { display: block; }
+
 /* ---------- layout ---------- */
 main {
   max-width: 760px;
@@ -284,4 +327,240 @@ footer p { margin: 4px 0; }
     animation: none;
     opacity: 1;
   }
+}
+
+/* =======================================================
+   Theme: Blueprint
+   ======================================================= */
+html[data-theme="blueprint"] {
+  --bg: #0A2540;
+  --surface: #0F3059;
+  --hairline: rgba(255, 255, 255, 0.18);
+  --text: #C7D9EC;
+  --text-muted: #6C89A8;
+  --verified: #EAF2FB;
+  --highlight: #FF5A4E;
+}
+
+html[data-theme="blueprint"] body {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 32px);
+}
+
+html[data-theme="blueprint"] body { font-family: 'IBM Plex Sans', sans-serif; }
+
+html[data-theme="blueprint"] .mono,
+html[data-theme="blueprint"] .job-header,
+html[data-theme="blueprint"] .status-line,
+html[data-theme="blueprint"] .chip,
+html[data-theme="blueprint"] .badge,
+html[data-theme="blueprint"] .education-line,
+html[data-theme="blueprint"] footer {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+html[data-theme="blueprint"] .hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+}
+
+html[data-theme="blueprint"] .eyebrow {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.14em;
+}
+
+html[data-theme="blueprint"] .status-line .check { color: var(--highlight); }
+
+/* dimension-line bracket motif around date ranges */
+html[data-theme="blueprint"] .job-header .mono::before { content: '⊢'; margin-right: 4px; color: var(--text-muted); }
+html[data-theme="blueprint"] .job-header .mono::after { content: '⊣'; margin-left: 4px; color: var(--text-muted); }
+
+/* red-pencil circled callout replaces the amber badge pill */
+html[data-theme="blueprint"] .badge {
+  position: relative;
+  color: var(--text);
+  border-color: transparent;
+  background: transparent;
+  padding: 1px 10px;
+}
+
+html[data-theme="blueprint"] .badge::after {
+  content: '';
+  position: absolute;
+  inset: -4px -8px;
+  border: 1.5px solid var(--highlight);
+  border-radius: 52% 48% 55% 45% / 60% 55% 60% 55%;
+  transform: rotate(-2deg) scale(0.6);
+  opacity: 0;
+}
+
+html[data-theme="blueprint"] .badge.badge-in::after {
+  animation: bpCircleIn 0.4s ease forwards;
+}
+
+@keyframes bpCircleIn {
+  from { opacity: 0; transform: rotate(-2deg) scale(0.6); }
+  to { opacity: 1; transform: rotate(-2deg) scale(1); }
+}
+
+html[data-theme="blueprint"] .job-lines li .stamp { display: none; }
+
+/* drafting-pen border draw-in */
+html[data-theme="blueprint"] .hero {
+  background-image: linear-gradient(to right, var(--verified), var(--verified));
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-size: 0% 1px;
+  padding-bottom: 40px;
+}
+
+html[data-theme="blueprint"] section,
+html[data-theme="blueprint"] .panel {
+  border-top-color: transparent;
+  background-image: linear-gradient(to right, var(--hairline), var(--hairline));
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 0% 1px;
+}
+
+html[data-theme="blueprint"] .panel { background-color: var(--surface); }
+
+html[data-theme="blueprint"].theme-drawn .hero,
+html[data-theme="blueprint"].theme-drawn section,
+html[data-theme="blueprint"].theme-drawn .panel {
+  background-size: 100% 1px;
+  transition: background-size 1s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="blueprint"] .hero,
+  html[data-theme="blueprint"] section,
+  html[data-theme="blueprint"] .panel {
+    background-size: 100% 1px;
+    transition: none;
+  }
+  html[data-theme="blueprint"] .badge::after {
+    animation: none;
+    opacity: 1;
+    transform: rotate(-2deg) scale(1);
+  }
+}
+
+/* =======================================================
+   Theme: Spec Sheet
+   ======================================================= */
+html[data-theme="spec-sheet"] {
+  --bg: #EDE7D9;
+  --surface: #E3DBC7;
+  --hairline: #C9BFA6;
+  --text: #1B1B18;
+  --text-muted: #6B655A;
+  --verified: #6B655A;
+  --highlight: #B23A2E;
+}
+
+html[data-theme="spec-sheet"] a { color: var(--text); }
+
+html[data-theme="spec-sheet"] body { font-family: 'Archivo', sans-serif; }
+
+html[data-theme="spec-sheet"] .mono,
+html[data-theme="spec-sheet"] .job-header,
+html[data-theme="spec-sheet"] .status-line,
+html[data-theme="spec-sheet"] .chip,
+html[data-theme="spec-sheet"] .badge,
+html[data-theme="spec-sheet"] .education-line,
+html[data-theme="spec-sheet"] footer {
+  font-family: 'Space Mono', monospace;
+}
+
+html[data-theme="spec-sheet"] .hero h1 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+html[data-theme="spec-sheet"] .eyebrow {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.16em;
+}
+
+html[data-theme="spec-sheet"] .status-line .check { color: var(--highlight); }
+
+/* parts-catalog header row */
+html[data-theme="spec-sheet"] .job-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+}
+
+html[data-theme="spec-sheet"] .job-header .role {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* TOL:-prefixed spec lines */
+html[data-theme="spec-sheet"] .job-lines li { padding-left: 3.6em; }
+
+html[data-theme="spec-sheet"] .job-lines li::before {
+  content: 'TOL:';
+  font-family: 'Space Mono', monospace;
+  font-size: 0.82em;
+  color: var(--text-muted);
+}
+
+html[data-theme="spec-sheet"] .job-lines li .stamp { display: none; }
+
+/* rubber-stamp QC PASS mark replaces the amber badge pill */
+html[data-theme="spec-sheet"] .badge {
+  position: relative;
+  color: var(--text);
+  border-color: var(--hairline);
+  background: var(--bg);
+}
+
+html[data-theme="spec-sheet"] .badge::after {
+  content: 'QC PASS';
+  position: absolute;
+  top: -11px;
+  right: -10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--highlight);
+  border: 1.5px solid var(--highlight);
+  border-radius: 3px;
+  padding: 1px 4px;
+  background: var(--ss-bg-stamp, transparent);
+  transform: rotate(-6deg) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-theme="spec-sheet"] .badge.badge-in::after {
+  animation: ssStampIn 0.22s ease-out forwards;
+}
+
+@keyframes ssStampIn {
+  from { opacity: 0; transform: rotate(-6deg) scale(1.4); }
+  to { opacity: 1; transform: rotate(-6deg) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="spec-sheet"] .badge::after {
+    animation: none;
+    opacity: 1;
+    transform: rotate(-6deg) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  html[data-theme="spec-sheet"] .job-header .role { margin-left: 0; }
 }
