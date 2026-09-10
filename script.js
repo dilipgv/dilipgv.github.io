@@ -1,43 +1,22 @@
 (function () {
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // event log reveal-on-scroll
-  var jobs = document.querySelectorAll('[data-job]');
+  // subtle fade-up reveal on scroll for cards and clusters
+  var targets = document.querySelectorAll('[data-reveal]');
 
-  function prepLines(job) {
-    var lines = job.querySelectorAll('.job-lines li');
-    lines.forEach(function (li) {
-      if (!reduceMotion) li.classList.add('reveal-hidden');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    targets.forEach(function (el) { el.classList.add('revealed'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        obs.unobserve(entry.target);
+      }
     });
-    return lines;
-  }
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-  function revealJob(job) {
-    var lines = job.querySelectorAll('.job-lines li');
-    lines.forEach(function (li, i) {
-      setTimeout(function () {
-        li.classList.remove('reveal-hidden');
-        li.classList.add('reveal-in');
-        var stamp = document.createElement('span');
-        stamp.className = 'stamp stamp-in';
-        stamp.textContent = '✓';
-        li.appendChild(stamp);
-      }, i * 110);
-    });
-  }
-
-  if (reduceMotion) {
-    // content already fully visible, no stamps needed
-  } else if ('IntersectionObserver' in window) {
-    jobs.forEach(prepLines);
-    var observer = new IntersectionObserver(function (entries, obs) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          revealJob(entry.target);
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    jobs.forEach(function (job) { observer.observe(job); });
-  }
+  targets.forEach(function (el) { observer.observe(el); });
 })();
